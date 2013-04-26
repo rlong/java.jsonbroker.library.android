@@ -11,7 +11,7 @@ import jsonbroker.library.common.log.LogDelegateHelper;
 import jsonbroker.library.common.log.Loggable;
 
 
-public abstract class AndroidLogDelegate implements LogDelegate {
+public class AndroidLogDelegate implements LogDelegate {
 
 	
 	private boolean _isDebugEnabled; 
@@ -39,7 +39,6 @@ public abstract class AndroidLogDelegate implements LogDelegate {
 			String methodName = LogDelegateHelper.getMethodName(origin);
 			message = threadName + " [" + origin.getCallerClassName() + " " + methodName +"] " + message;
 			
-			//System.out.println( "DBG " + threadName + " [" + origin.getCallerClassName() + " " + methodName +"] " + message );
 			android.util.Log.d( "jsonbroker", message );			
 		}
 	}

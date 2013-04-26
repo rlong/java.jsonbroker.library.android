@@ -60,14 +60,6 @@ public class AndroidNetUtil extends NetUtil {
 		}
 		
 		
-//		if( true ) {
-//			log.warn( "true" );
-//			ip4Address[0] = (byte)172;
-//			ip4Address[1] = (byte)16;
-//			ip4Address[2] = (byte)74;
-//			ip4Address[3] = (byte)131;
-//		}
-		
 		try {
 			InetAddress answer = InetAddress.getByAddress( ip4Address );
 			log.debug( answer.getHostAddress(), "answer.getHostAddress()" );
