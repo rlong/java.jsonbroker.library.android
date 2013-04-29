@@ -1,24 +1,31 @@
-package jsonbroker.library.android.common.bluetooth;
+// Copyright (c) 2013 Richard Long & HexBeerium
+//
+// Released under the MIT license ( http://opensource.org/licenses/MIT )
+//
+
+package jsonbroker.library.android.common.channel;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import jsonbroker.library.common.bluetooth.BluetoothChannel;
-import jsonbroker.library.common.bluetooth.BluetoothChannelHelper;
+import jsonbroker.library.common.channel.Channel;
+import jsonbroker.library.common.channel.ChannelHelper;
 import jsonbroker.library.common.exception.BaseException;
+import jsonbroker.library.common.log.Log;
 import android.bluetooth.BluetoothSocket;
 
-public class AndroidBluetoothChannel implements BluetoothChannel {
+public class AndroidBluetoothChannel implements Channel {
 	
 	
+	private static Log log = Log.getLog( AndroidBluetoothChannel.class );
+
 	BluetoothSocket _bluetoothSocket;
 	InputStream _inputStream;
 	OutputStream _outputStream;
 
 	
 	public AndroidBluetoothChannel( BluetoothSocket bluetoothSocket ) {
-		
 		
 		
 		_bluetoothSocket = bluetoothSocket;
@@ -36,7 +43,7 @@ public class AndroidBluetoothChannel implements BluetoothChannel {
 	
 
 	@Override
-	public void close() {
+	public void close( boolean ignoreErrors ) {
 		try {
 			
 			_inputStream.close();
@@ -45,7 +52,12 @@ public class AndroidBluetoothChannel implements BluetoothChannel {
 			
 		} catch (IOException e) {
 			
-			throw new BaseException( this, e );			
+			if( ignoreErrors ) {
+				log.warn( e );
+			} else {
+				throw new BaseException( this, e );
+			}
+						
 		}
 		
 	}
@@ -53,19 +65,23 @@ public class AndroidBluetoothChannel implements BluetoothChannel {
 
 	@Override
 	public String readLine() {
-		return BluetoothChannelHelper.readLine(_inputStream, this);
+		return ChannelHelper.readLine(_inputStream, this);
 	}
 
 	
+	@Override
+	public void write( byte[] bytes ) {
+		ChannelHelper.write( _outputStream, bytes );		
+	}
 	
 	@Override
 	public void write( String line ) {
-		BluetoothChannelHelper.write( _outputStream, line);
+		ChannelHelper.write( _outputStream, line);
 	}
 
 	@Override
 	public void writeLine( String line ) {
-		BluetoothChannelHelper.writeLine( _outputStream, line);
+		ChannelHelper.writeLine( _outputStream, line);
 	}
 	
 	
