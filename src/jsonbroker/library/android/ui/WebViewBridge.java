@@ -103,12 +103,14 @@ public class WebViewBridge extends WebViewClient implements JavascriptCallbackAd
 		
 		
 		if( url.startsWith( "jsonbroker:" ) ) {
-			if( _active ) {
+			if( !_active ) {
 				
+				log.warn( "!_active" );
+				
+			} else {
 				BrokerJob job = new BrokerJob(url, true, _primaryService, this);
 				WorkManager.enqueue( job );
-				
-			} 
+			}
 			// True if the host application wants to handle the key event itself, otherwise return false 
 			return true;
 		}
@@ -117,8 +119,7 @@ public class WebViewBridge extends WebViewClient implements JavascriptCallbackAd
 		
 	}
 	
-	
-	
+		
     public void onResume() {
 
     	log.enteredMethod();   	
@@ -216,7 +217,7 @@ public class WebViewBridge extends WebViewClient implements JavascriptCallbackAd
 
 
 	@Override
-	public void onResponse(BrokerMessage request, BrokerMessage response) {
+	public void onResponse( BrokerMessage response) {
 		
 		if( !_active ) {
 			log.warn( "!_active" );

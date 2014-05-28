@@ -16,7 +16,8 @@ public class JsonBrokerLibraryAndroid {
 	
 	public static void setup(Application application, boolean isDebugEnabled) {
 	
-		Log.setDelegate( new AndroidLogDelegate( isDebugEnabled ) ); 
+		String tag = application.getPackageName();
+		Log.setDelegate( new AndroidLogDelegate( isDebugEnabled, tag ) ); 
 		
 		NetUtil.setInstance( new AndroidNetUtil( application ) );
 	}

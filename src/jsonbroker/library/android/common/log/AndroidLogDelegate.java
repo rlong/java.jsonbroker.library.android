@@ -14,10 +14,30 @@ import jsonbroker.library.common.log.Loggable;
 public class AndroidLogDelegate implements LogDelegate {
 
 	
-	private boolean _isDebugEnabled; 
+	////////////////////////////////////////////////////////////////////////////
+	//
+	private boolean _isDebugEnabled;
 	
+	////////////////////////////////////////////////////////////////////////////
+	//
+	private String _tag;
+	
+	
+	/**
+	 * @deprecated use AndroidLogDelegate( boolean isDebugEnabled, String tag )
+	 * @param isDebugEnabled
+	 */
 	public AndroidLogDelegate( boolean isDebugEnabled ) {
+		
 		_isDebugEnabled = isDebugEnabled;
+		_tag = "jsonbroker";
+		
+	}
+	
+	public AndroidLogDelegate( boolean isDebugEnabled, String tag ) {
+		
+		_isDebugEnabled = isDebugEnabled;
+		_tag = tag;
 		
 	}
 	
@@ -37,9 +57,9 @@ public class AndroidLogDelegate implements LogDelegate {
 		if( _isDebugEnabled ) {
 			String threadName = Thread.currentThread().getName();
 			String methodName = LogDelegateHelper.getMethodName(origin);
-			message = threadName + " [" + origin.getCallerClassName() + " " + methodName +"] " + message;
+			message = threadName + " [" + origin.getCallerName() + " " + methodName +"] " + message;
 			
-			android.util.Log.d( "jsonbroker", message );			
+			android.util.Log.d( _tag, message );			
 		}
 	}
 	
@@ -121,9 +141,9 @@ public class AndroidLogDelegate implements LogDelegate {
 		if( _isDebugEnabled ) {
 			String threadName = Thread.currentThread().getName();
 			String methodName = LogDelegateHelper.getMethodName(origin);
-			message = threadName + " [" + origin.getCallerClassName() + " " + methodName +"] " + message;
+			message = threadName + " [" + origin.getCallerName() + " " + methodName +"] " + message;
 			
-			android.util.Log.i( "jsonbroker", message );			
+			android.util.Log.i( _tag, message );			
 		}
 	}
 
@@ -134,9 +154,9 @@ public class AndroidLogDelegate implements LogDelegate {
 		if( _isDebugEnabled ) {
 			String threadName = Thread.currentThread().getName();
 			String methodName = LogDelegateHelper.getMethodName(origin);
-			message = threadName + " [" + origin.getCallerClassName() + " " + methodName +"] " + message;
+			message = threadName + " [" + origin.getCallerName() + " " + methodName +"] " + message;
 			
-			android.util.Log.w( "jsonbroker", message );			
+			android.util.Log.w( _tag, message );			
 		}
 	}
 	
@@ -147,9 +167,9 @@ public class AndroidLogDelegate implements LogDelegate {
 		if( _isDebugEnabled ) {
 			String threadName = Thread.currentThread().getName();
 			String methodName = LogDelegateHelper.getMethodName(origin);
-			message = threadName + " [" + origin.getCallerClassName() + " " + methodName +"] " + message;
+			message = threadName + " [" + origin.getCallerName() + " " + methodName +"] " + message;
 			
-			android.util.Log.e( "jsonbroker", message );			
+			android.util.Log.e( _tag, message );			
 		}
 	}
 

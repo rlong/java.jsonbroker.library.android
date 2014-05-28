@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import jsonbroker.library.common.auxiliary.StreamUtilities;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
+
 import jsonbroker.library.common.channel.Channel;
 import jsonbroker.library.common.channel.ChannelHelper;
 import jsonbroker.library.common.exception.BaseException;
@@ -63,6 +64,16 @@ public class AndroidBluetoothChannel implements Channel {
 		
 	}
 
+	@Override
+	public void flush() {
+		
+		try {
+			_outputStream.flush();
+		} catch (IOException e) {
+			throw new BaseException( this, e );
+		}
+		
+	}
 
 	@Override
 	public String readLine() {
@@ -76,8 +87,8 @@ public class AndroidBluetoothChannel implements Channel {
 	}
 	
 	@Override
-	public void write( InputStream inputStream ) {	
-		StreamUtilities.write( inputStream, _outputStream );
+	public void write( InputStream inputStream ) {			
+		InputStreamHelper.write( inputStream, _outputStream );
 	}
 
 	@Override
@@ -89,6 +100,8 @@ public class AndroidBluetoothChannel implements Channel {
 	public void writeLine( String line ) {
 		ChannelHelper.writeLine( line, _outputStream);
 	}
+
+
 	
 	
 

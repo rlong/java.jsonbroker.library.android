@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Richard Long & HexBeerium
+// Copyright (c) 2014 Richard Long & HexBeerium
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
@@ -9,28 +9,23 @@ import jsonbroker.library.common.broker.BrokerMessage;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.log.Log;
 import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.Service;
 import jsonbroker.library.server.broker.ServiceDescription;
 import android.os.Handler;
 
-public class GuiService implements DescribedService {
+public class MainThreadServiceDelegator implements DescribedService {
 	
-	private static Log log = Log.getLog( GuiService.class );
+	private static Log log = Log.getLog( MainThreadServiceDelegator.class );
 	
-
-	public static final String SERVICE_NAME = "UserInterfaceService";
-	public static final ServiceDescription SERVICE_DESCRIPTION = new ServiceDescription( SERVICE_NAME );
-
 
 	////////////////////////////////////////////////////////////////////////////
 
-	Service _delegate;
+	DescribedService _delegate;
 	
 	Handler _handler; 
 	
 	
 	////////////////////////////////////////////////////////////////////////////
-	public GuiService( Service delegate ) {
+	public MainThreadServiceDelegator( DescribedService delegate ) {
 		_delegate = delegate;
 		_handler = new Handler();
 	}
@@ -67,10 +62,10 @@ public class GuiService implements DescribedService {
 		
 	}
 	
-	@Override
-	public ServiceDescription getServiceDescription() {
-		return SERVICE_DESCRIPTION;
-	}
+//	@Override
+//	public ServiceDescription getServiceDescription() {
+//		return _delegate.getServiceDescription();
+//	}
 
 
 	// runs in the context of the main UI thread
@@ -97,6 +92,11 @@ public class GuiService implements DescribedService {
 				this.notify();
 			}
 		}
+	}
+
+	@Override
+	public ServiceDescription getServiceDescription() {
+		return _delegate.getServiceDescription();
 	}
 
 
