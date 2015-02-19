@@ -1,4 +1,6 @@
-java.jsonbroker.library.android
-=======================
 
-extensions to 'java.jsonbroker.library' to support Android
+jsonbroker.android
+==================
+
+extensions to 'jsonbroker.java' to support Android
+

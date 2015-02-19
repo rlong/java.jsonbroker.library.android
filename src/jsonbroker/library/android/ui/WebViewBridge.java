@@ -96,10 +96,40 @@ public class WebViewBridge extends WebViewClient implements JavascriptCallbackAd
 	}
 
 
+	public void onPause() {
+		
+		log.enteredMethod();
+		
+		if( !_active ) {
+			return;
+		}
+		
+		_active = false;
+	
+	    _webView.loadUrl("javascript:onPause();");
+	}
+
+
+
+	public void onResume() {
+	
+		log.enteredMethod();   	
+	
+		if( _active ) {
+			return;
+		}
+	
+		_active = true;
+	
+	    _webView.loadUrl("javascript:onResume();");
+	}
+
+
+
 	@Override
 	public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		
-		log.enteredMethod();
+//		log.enteredMethod();
 		
 		
 		if( url.startsWith( "jsonbroker:" ) ) {
@@ -120,35 +150,7 @@ public class WebViewBridge extends WebViewClient implements JavascriptCallbackAd
 	}
 	
 		
-    public void onResume() {
-
-    	log.enteredMethod();   	
-
-    	if( _active ) {
-    		return;
-    	}
-
-		_active = true;
-
-        _webView.loadUrl("javascript:onResume();");
-    }
-
-    public void onPause() {
-    	
-    	log.enteredMethod();
-    	
-    	if( !_active ) {
-    		return;
-    	}
-    	
-		_active = false;
-
-        _webView.loadUrl("javascript:onPause();");
-    }
-
-    
-    
-	class JavascriptPoster implements Runnable {
+    class JavascriptPoster implements Runnable {
 		String _javascript;
 		
 		JavascriptPoster( String javascript ) {
