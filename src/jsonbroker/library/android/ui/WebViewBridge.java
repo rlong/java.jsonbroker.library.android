@@ -5,13 +5,13 @@
 
 package jsonbroker.library.android.ui;
 
-import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessage;
 import jsonbroker.library.common.log.Log;
 import jsonbroker.library.common.work.WorkManager;
-import jsonbroker.library.server.broker.BrokerJob;
-import jsonbroker.library.server.broker.JavascriptCallbackAdapter;
-import jsonbroker.library.server.broker.JavascriptCallbackAdapterHelper;
-import jsonbroker.library.server.broker.Service;
+import jsonbroker.library.broker.server.BrokerJob;
+import jsonbroker.library.broker.server.JavascriptCallbackAdapter;
+import jsonbroker.library.broker.server.JavascriptCallbackAdapterHelper;
+import jsonbroker.library.broker.server.Service;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Handler;

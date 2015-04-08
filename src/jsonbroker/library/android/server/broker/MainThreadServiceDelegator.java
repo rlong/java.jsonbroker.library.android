@@ -5,11 +5,11 @@
 
 package jsonbroker.library.android.server.broker;
 
-import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessage;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.ServiceDescription;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.ServiceDescription;
 import android.os.Handler;
 
 public class MainThreadServiceDelegator implements DescribedService {
